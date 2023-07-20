@@ -7,4 +7,7 @@ export const movieServ = {
   getAllMovie: () => {
     return https.get("api/QuanLyPhim/LayDanhSachPhim?maNhom=GP09");
   },
+  getDetailsMovie: (maPhim) => {
+    return https.get(`/api/QuanLyPhim/LayThongTinPhim?MaPhim=${maPhim}`);
+  },
 };

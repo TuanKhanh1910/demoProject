@@ -1,12 +1,18 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUser } from "../../redux/slices/userSlice";
+import {
+  getAllUser,
+  getAllUserAPI,
+  updateUser,
+  updateUserAPI,
+} from "../../redux/slices/userSlice";
 import { userServ } from "../../services/userServices";
 import * as yup from "yup";
 
 const FormAddUser = () => {
   const { changeUsers } = useSelector((state) => state.user);
+  const { isBtn } = useSelector((state) => state.btnReadOnly);
   // console.log("changeUsers: ", changeUsers);
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -32,7 +38,7 @@ const FormAddUser = () => {
         // console.log(values);
         const res = await userServ.addUser(values);
         // console.log("res: ", res);
-        dispatch(getAllUser());
+        dispatch(getAllUserAPI());
         formik.resetForm();
         document.querySelector(".ant-drawer-close").click();
       } catch (error) {
@@ -162,7 +168,7 @@ const FormAddUser = () => {
           </div>
           <div className="relative z-0 w-full mb-6 group">
             <input
-              readOnly={false}
+              readOnly={isBtn}
               id="taiKhoanInput"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -244,6 +250,21 @@ const FormAddUser = () => {
           Thêm người dùng
         </button>
         <button
+          onClick={() => {
+            userServ
+              .updateUser(formik.values)
+              .then((res) => {
+                console.log(res);
+                dispatch(updateUserAPI(res.data.content));
+                // dispatch(getAllUserAPI());
+                document.querySelector(".ant-drawer-close").click();
+                formik.resetForm();
+                // console.log("res.data.content: ", res.data.content);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }}
           type="button "
           className="text-white bg-yellow-500 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800"
         >

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FormAddUser from "../../Components/FormAddUser/FormAddUser";
 import TableUser from "../../Components/TableUser/TableUser";
-import { getAllUser } from "../../redux/slices/userSlice";
+import { getAllUser, getAllUserAPI } from "../../redux/slices/userSlice";
 import { userServ } from "../../services/userServices";
 
 const UserManagement = () => {
@@ -19,7 +19,7 @@ const UserManagement = () => {
     //   .catch((erro) => {
     //     console.log(erro);
     //   });
-    dispatch(getAllUser());
+    dispatch(getAllUserAPI());
   }, []);
 
   console.log("users: ", users);

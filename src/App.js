@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MovieDetails from "./Components/ListMovie/MovieDetails/MovieDetails";
 import HomePage from "./pages/HomePage/HomePage";
 import Loading from "./pages/Loading/Loading";
 import Login from "./pages/Login/Login";
@@ -15,6 +16,9 @@ function App() {
         <Route path="/" element={<UserTemplate />}>
           <Route index element={<HomePage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/detail">
+            <Route path=":maPhim" element={<MovieDetails />} />
+          </Route>
         </Route>
         <Route path="/admin" element={<AdminTemplate />}>
           <Route index element={<UserManagement />} />

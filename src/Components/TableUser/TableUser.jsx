@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { userServ } from "../../services/userServices";
 import userSlice, {
   getAllUser,
+  getAllUserAPI,
   layThongTin,
 } from "../../redux/slices/userSlice";
 import { Formik } from "formik";
 import "./TableUser.scss";
+import { setButton } from "../../redux/slices/btnSlice";
 
 const TableUser = () => {
   // const [btnReadOnly, setbtnReadOnly] = useState(false);
@@ -75,7 +77,7 @@ const TableUser = () => {
               userServ
                 .deleteUser(record.taiKhoan)
                 .then((res) => {
-                  dispatch(getAllUser());
+                  dispatch(getAllUserAPI());
                   message.success("Đã xóa thành công");
                 })
                 .catch((erro) => {
@@ -98,6 +100,7 @@ const TableUser = () => {
             onClick={() => {
               dispatch(layThongTin(record.taiKhoan));
               document.getElementById("btnThem").click();
+              dispatch(setButton());
               // document.querySelector("#taiKhoanInput").readOnly = true;
               // console.log(document.querySelector("#taiKhoanInput").readOnly);
               // setbtnReadOnly(true);

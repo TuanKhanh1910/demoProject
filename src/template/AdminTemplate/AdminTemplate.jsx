@@ -24,7 +24,7 @@ const AdminTemplate = () => {
     const user = layDuLieuLocal("user");
     // lấy lên sẽ có những trường hợp : 1) là null, 2 ko phải là admin
     if (user) {
-      console.log(user);
+      // console.log(user);
       if (user.maLoaiNguoiDung != "QuanTri") {
         window.location.href = "https://www.google.com.vn";
       }

@@ -4,10 +4,23 @@ import { userServ } from "../../services/userServices";
 
 // nơi tạo các createAsyncThunk để xử lí các bất đôngg bộ trước khi bắn dữ liệu lên store bằng redux-thunk
 // bên trong createAsyncThunk sẽ có 2 tham số, là một type của hàm, thứ 2 sẽ là hàm cần xử lí bất đồng bộ
-export const getAllUser = createAsyncThunk("user/getAllUser", async () => {
-  const res = await userServ.getAllUser();
-  return res.data.content;
-});
+export const getAllUserAPI = createAsyncThunk(
+  "user/getAllUserAPI",
+  async () => {
+    const res = await userServ.getAllUser();
+    return res.data.content;
+  }
+);
+
+export const updateUserAPI = createAsyncThunk(
+  "user/updateUserAPI",
+  async () => {
+    const res = await userServ.getAllUser();
+    console.log("res: ", res);
+
+    return res.data.content;
+  }
+);
 
 const initialState = {
   hoTen: layDuLieuLocal("user"),
@@ -31,10 +44,19 @@ export const userSlice = createSlice({
       let infoUser = state.users.find(
         (user) => user.taiKhoan == action.payload
       );
-      console.log("action.payload: ", action.payload);
+      // console.log("action.payload: ", action.payload);
       // console.log("infoUser: ", infoUser);
       state.changeUsers = infoUser;
     },
+    // updateUser: (state, action) => {
+    //   let index = state.users.findIndex(
+    //     (item) => item.taiKhoan == action.payload.taiKhoan
+    //   );
+    //   console.log("action.payload: ", action.payload);
+    //   console.log("action.payload.taiKhoan: ", action.payload.taiKhoan);
+    //   console.log("index: ", index);
+    //   // console.log("action.payload: ", action.payload.taiKhoan);
+    // },
   },
   //extraReducers giúp tách biệt các logic bất đồng bộ ra khỏi reducer vì khi xử lí bất đồng bộ có nhiều trường hợp xảy ra
   extraReducers: (builder) => {
@@ -43,11 +65,12 @@ export const userSlice = createSlice({
     // khi chạy thành công sẽ chấm tới fulfilled
     // khi đang chạy là pending
     // chạy thất bại là reject
-    builder.addCase(getAllUser.fulfilled, (state, action) => {
+    builder.addCase(getAllUserAPI.fulfilled, (state, action) => {
+      // console.log("action: ", action);
       state.users = action.payload;
     });
     // khi gặp lỗi
-    builder.addCase(getAllUser.rejected, (state, action) => {
+    builder.addCase(getAllUserAPI.rejected, (state, action) => {
       state.users = [
         {
           hoTen: "A",
@@ -55,10 +78,18 @@ export const userSlice = createSlice({
         },
       ];
     });
+
+    builder.addCase(updateUserAPI.fulfilled, (state, action) => {
+      state.users = action.payload;
+    });
+    builder.addCase(updateUserAPI.rejected, (state, action) => {
+      console.log("action.payload: ", action.payload);
+      // console.log("state: ", state);
+    });
   },
 });
 
-export const { setDuLieuHoTen, layThongTin } = userSlice.actions;
+export const { setDuLieuHoTen, layThongTin, updateUser } = userSlice.actions;
 // để sử dụng trong component
 
 export default userSlice.reducer;
