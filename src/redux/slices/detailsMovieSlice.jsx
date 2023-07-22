@@ -20,6 +20,7 @@ const detailsMovieSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getDetailsMovieAPI.fulfilled, (state, action) => {
+      console.log("action: ", action);
       state.movie = action.payload;
     });
     builder.addCase(getDetailsMovieAPI.rejected, (state, action) => {

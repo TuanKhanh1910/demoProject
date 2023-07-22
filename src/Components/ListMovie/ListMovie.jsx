@@ -28,7 +28,7 @@ const ListMovie = () => {
   }, []);
 
   return (
-    <div className="max-w-screen-xl mx-auto py-10">
+    <div id="listMovie" className="max-w-screen-xl mx-auto py-10">
       <h2 className="text-3xl font-bold">Danh sách phim</h2>
       <div className="grid grid-cols-4 gap-5">
         {movie.map(({ hinhAnh, tenPhim, maPhim, moTa }, index) => {

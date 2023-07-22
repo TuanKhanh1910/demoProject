@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { getDetailsMovieAPI } from "../../../redux/slices/detailsMovieSlice";
 import momnet from "moment";
 
@@ -38,6 +38,17 @@ const MovieDetails = () => {
             <i className="fa-solid fa-star text-yellow-500"></i>
           </p>
         </div>
+      </div>
+      <div className="flex justify-between items-center mt-10 mb-10">
+        <NavLink
+          to="/"
+          className="py-2 px-5 bg-green-500 rounded-lg hover:bg-green-400 duration-500 font-bold "
+        >
+          Quay về trang chủ
+        </NavLink>
+        <NavLink className="py-2 px-5 bg-orange-500 rounded-lg hover:bg-orange-400 duration-500 font-bold">
+          Đặt vé
+        </NavLink>
       </div>
     </div>
   );
